@@ -6,6 +6,8 @@ from tabulate import tabulate
 # Experiments
 import run
 from parts.utils import *
+import matplotlib.pyplot as plt
+
 pd.options.display.float_format = '{:.2f}'.format
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
@@ -16,5 +18,10 @@ df = run.run()
 rdf = run.postprocessing(df)
 
 print(rdf)
+
 # print(tabulate(rdf, headers='keys', tablefmt='grid', showindex="always"))
+
+fig, ax = plt.subplots()
+ax.plot(rdf["timestep"], rdf["pool_rate"])
+plt.show()
 

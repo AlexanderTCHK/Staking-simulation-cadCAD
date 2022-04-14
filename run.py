@@ -3,7 +3,6 @@ from parts.utils import *
 import config
 from cadCAD.engine import ExecutionMode, ExecutionContext,Executor
 from cadCAD import configs
-import json
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)

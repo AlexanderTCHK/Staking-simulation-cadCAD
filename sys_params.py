@@ -5,7 +5,7 @@ Model parameters.
 agent_params = {
     'initial_agent_count':2,
     'min_pool_rate_for_opening_position': 5,
-    'deposit_days': 10
+    'deposit_days': 30
 }
 
 pool_params = {
