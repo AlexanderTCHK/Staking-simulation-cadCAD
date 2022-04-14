@@ -31,16 +31,17 @@ def postprocessing(df):
     Parameters:
     df: simulation dataframe
     '''
-    # #subset to last substep
+    #subset to last substep
     df = df[df['substep'] == df.substep.max()]
     
-    #Get the ABM results
-    agent_ds = df.agents
-
     uuid_agent = df.explode('agents').agents
     
-     
-    ## Agent metrics
+    # Pool
+    pool_rate = df['pool'].apply(pd.Series)['pool_rate']
+    total_agents = df['pool'].apply(pd.Series)['total_agents']
+    invested_tokens = df['pool'].apply(pd.Series)['invested_tokens']
+
+    # Agent metrics
     tokens_income = [d.get('tokens_income') for outer_d in df['agents'] for d in outer_d.values()]
     investment_amount = [d.get('investment_amount') for outer_d in df['agents'] for d in outer_d.values()]
     deposit_days = [d.get('deposit_days') for outer_d in df['agents'] for d in outer_d.values()]
@@ -51,7 +52,10 @@ def postprocessing(df):
     data = (pd.DataFrame({#'run': df.run,
                           'timestep': df.timestep,
                           #'substep': df.substep,
-                          'pool_rate': df.pool,
+                          #'pool': df.pool,
+                          'pool_rate': pool_rate,
+                          'total_agents': total_agents,
+                          'invested_tokens': invested_tokens,
                           'uuid_agent': uuid_agent,
                           'deposit_days': deposit_days,
                           'opened_position': opened_position,

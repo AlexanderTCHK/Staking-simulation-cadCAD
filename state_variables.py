@@ -1,11 +1,11 @@
 # Dependences
 from parts.utils import *
-from sys_params import initial_values
+from sys_params import agent_params
 pool_rate = random.randint(1, 10)
 
 ## Initial state object
 genesis_states = {
-    'agents': generate_agents(initial_values['initial_prey_count']),
+    'agents': generate_agents(agent_params['initial_agent_count']),
     'pool': new_pool()
 }
 

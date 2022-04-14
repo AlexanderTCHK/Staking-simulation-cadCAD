@@ -1,3 +1,4 @@
+from multiprocessing import pool
 import numpy as np
 import random
 from typing import *
@@ -7,14 +8,11 @@ import pandas as pd
 
 # Initialization
 def new_agent(age: int=0) -> dict:
-    deposit_days = 0
-    opened_position = False
-    agent = {'ready_to_open': True,
-             'deposit_days': deposit_days,
-             'opened_position': opened_position,
+    agent = {'ready_to_open': False,
+             'deposit_days': 0,
+             'opened_position': False,
              'tokens_income': 0,
-             'investment_amount': 100,
-             'age':age}
+             'investment_amount': 100}
     return agent
 
 
@@ -29,19 +27,28 @@ def generate_agents(n_agents: int) -> Dict[str, dict]:
 
 
 # Environment
-print('ffffffffffffffffff')
 def new_pool() -> dict:
     pool_rate = 101
-    print('1')
     total_agents = 0
-    print('2')
     invested_tokens = 0
-    print('3')
     pool = {'pool_rate': pool_rate,
             'total_agents': total_agents,
             'invested_tokens': invested_tokens}
-    print(pool)
     return pool
+
+# Agents
+def get_max_agents(pool_rate: int) -> int:
+    if pool_rate < 5:
+        max_agents = 0
+    elif pool_rate < 20:
+        max_agents = 1
+    elif pool_rate < 50:
+        max_agents = 3
+    elif pool_rate < 100:
+        max_agents = 6
+    else:
+        max_agents = 10
+    return max_agents
 
 # plotting
 def aggregate_runs(df,aggregate_dimension):

@@ -2,12 +2,12 @@ from cadCAD.configuration import Experiment
 from cadCAD.configuration.utils import config_sim
 from state_variables import genesis_states
 from partial_state_update_block import partial_state_update_block
-from sys_params import sys_params 
+#from sys_params import sys_params 
 
 sim_config = config_sim (
     {
         'N': 1, # number of monte carlo runs
-        'T': range(15), # number of timesteps
+        'T': range(30*2), # number of timesteps
         #'M': sys_params, # simulation parameters
     }
 )

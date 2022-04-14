@@ -5,7 +5,7 @@ partial_state_update_block = [
     {
         # environment.py
         'policies': {
-            'pool_rate': define_pool_rate
+            'pool': define_pool_rate
         },
         'variables': {
             'pool': update_pool_rate
@@ -14,54 +14,58 @@ partial_state_update_block = [
     {
         # agents.py
         'policies': {
-            'increase_agent_age': deposit_days_countdown_beh
+            'agents': define_deposit_days
         },
         'variables': {
-            'agents': deposit_days_countdown_mech
+            'agents': update_deposit_days
 
         }
     },
     {
-        # agents.py
+        # agents.py 
         'policies': {
-            'opening_status_beh': define_opening_status_beh
+            'agents': closing_expired_position
         },
         'variables': {
-            'agents': define_opening_status_mech
-
+            'agents': update_agent_closing_expired_position,
+            'pool': update_pool_closing_expired_position
         }
     },
     {
-        # agents.py
+        # agents.py 
         'policies': {
-            'opening_status_beh': open_close_position_beh
+            'agents': reproduce_agents
         },
         'variables': {
-            'agents': open_close_position_mech,
-            'pool': setting_pool_total_agents_mech
-
+            'agents': agent_create
         }
     },
-
-
     {
-        # agents.py
+        # agents.py 
         'policies': {
-            'feed_prey': setting_deposit_days_beh
+            'agents': define_ready_to_open_status
         },
         'variables': {
-            'agents': setting_deposit_days_mech
+            'agents': update_ready_to_open_status,
         }
     },
-        # {
-    #     # agents.py
-    #     'policies': {
-    #         'reproduce_agents': reproduce_agents
-
-    #     },
-    #     'variables': {
-    #         'agents': agent_create
-
-    #     }
-    # },
+    {
+        # agents.py 
+        'policies': {
+            'agents': opening_position
+        },
+        'variables': {
+            'agents': update_agent_opening_position,
+            'pool': update_pool_opening_position
+        }
+    },
+    {
+        # agents.py 
+        'policies': {
+            'agents': define_agent_tokens_income
+        },
+        'variables': {
+            'agents': update_agent_tokens_income,
+        }
+    },
 ]
