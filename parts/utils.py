@@ -2,17 +2,42 @@ from multiprocessing import pool
 import numpy as np
 import random
 from typing import *
-import uuid
 import matplotlib.pyplot as plt
 import pandas as pd
+import itertools
+
+
+# Creating a generator
+class with_current(object):
+
+    def __init__(self, generator):
+        self.__gen = generator()
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.current = next(self.__gen)
+        return self.current
+
+    def __call__(self):
+        return self
+
+
+def countup_gen():
+    for i in itertools.count(1):
+        yield i
+
+countup_generator = countup_gen()     
 
 # Initialization
 def new_agent(age: int=0) -> dict:
+    get_agent_investment_amount = round(float(np.random.lognormal(4.3, .5, 1)), 2)
     agent = {'ready_to_open': False,
              'deposit_days': 0,
              'opened_position': False,
              'tokens_income': 0,
-             'investment_amount': 100}
+             'investment_amount': get_agent_investment_amount}
     return agent
 
 
@@ -21,10 +46,16 @@ def generate_agents(n_agents: int) -> Dict[str, dict]:
     for agent in range(n_agents):
         created_agent = new_agent()
         #initial_agents[uuid.uuid4()] = created_agent
-        initial_agents[f"Agent # {agent}"] = created_agent
+        initial_agents[f"Agent # {next(countup_generator)}"] = created_agent
     print("initial_agents", initial_agents)
     return initial_agents
 
+# Shuffle agents 
+def shuffle_agents_ordering(agents: dict):
+    lst = list(agents.items())
+    random.shuffle(lst)
+    agents_dict = dict(lst)
+    return agents_dict
 
 # Environment
 def new_pool() -> dict:

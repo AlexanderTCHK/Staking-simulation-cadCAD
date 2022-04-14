@@ -7,7 +7,7 @@ from partial_state_update_block import partial_state_update_block
 sim_config = config_sim (
     {
         'N': 1, # number of monte carlo runs
-        'T': range(3), # number of timesteps
+        'T': range(20), # number of timesteps
         #'M': sys_params, # simulation parameters
     }
 )

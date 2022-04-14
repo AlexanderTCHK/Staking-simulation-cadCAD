@@ -76,14 +76,14 @@ def reproduce_agents(params, substep, state_history, prev_state):
     lack_of_agents = 10 - free_agents
     print("lack_of_agents", lack_of_agents)
     new_agents = {}
-
     for agent in range(lack_of_agents):
+        get_agent_investment_amount = round(float(np.random.lognormal(4.3, .5, 1)), 2)
         new_agent_properties = {'ready_to_open': False,
                                 'deposit_days': 0,
                                 'opened_position': False,
                                 'tokens_income': 0,
-                                'investment_amount': 100}
-        new_agents[uuid4()] = new_agent_properties
+                                'investment_amount': get_agent_investment_amount}
+        new_agents[f"Agent # {next(countup_generator)}"] = new_agent_properties
     print("new_agents", new_agents)
     return {'agent_create': new_agents}
 
@@ -102,7 +102,8 @@ def define_ready_to_open_status(params, substep, state_history, prev_state):
     
     # Agent
     agents = prev_state['agents']
-      
+    # Shuffle agents  
+    agents = shuffle_agents_ordering(agents)
     ready_to_open = {}
 
     if pool_rate > agent_params['min_pool_rate_for_opening_position']:
@@ -115,8 +116,7 @@ def define_ready_to_open_status(params, substep, state_history, prev_state):
                     ready_to_open[agent] = True
                     added_agents += 1
                 else:
-                    ready_to_open[agent] = False
-                    
+                    ready_to_open[agent] = False                  
     else:
         for agent, properties in agents.items():
             ready_to_open[agent] = False
