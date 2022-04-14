@@ -15,9 +15,10 @@ def define_pool_rate(params, substep, state_history, prev_state):
     invested_tokens = prev_state['pool']['invested_tokens']
     try:
         pool_rate = round(pool_tokens_reward / invested_tokens * 100 * 365 , 2)
+        print("pool_rate89", pool_rate)
     except ZeroDivisionError:
         pool_rate = 101
-    pool_rate = random.randint(0, 10)   
+    #pool_rate = random.randint(0, 10)   
     return {'pool_rate': pool_rate}
 
 

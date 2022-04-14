@@ -6,6 +6,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import itertools
 
+# Generate log-normal distribution value
+def get_agent_invest_value():
+    value = round(float(np.random.lognormal(10, .5, 1)))
+    #value = random.randint(18000, 20000)
+    return value
 
 # Creating a generator
 class with_current(object):
@@ -32,7 +37,7 @@ countup_generator = countup_gen()
 
 # Initialization
 def new_agent(age: int=0) -> dict:
-    get_agent_investment_amount = round(float(np.random.lognormal(4.3, .5, 1)), 2)
+    get_agent_investment_amount = get_agent_invest_value()
     agent = {'ready_to_open': False,
              'deposit_days': 0,
              'opened_position': False,

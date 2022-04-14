@@ -77,7 +77,7 @@ def reproduce_agents(params, substep, state_history, prev_state):
     print("lack_of_agents", lack_of_agents)
     new_agents = {}
     for agent in range(lack_of_agents):
-        get_agent_investment_amount = round(float(np.random.lognormal(4.3, .5, 1)), 2)
+        get_agent_investment_amount = get_agent_invest_value()
         new_agent_properties = {'ready_to_open': False,
                                 'deposit_days': 0,
                                 'opened_position': False,
