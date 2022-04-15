@@ -37,7 +37,7 @@ def postprocessing(df):
     
     # Pool
     pool_rate = df['pool'].apply(pd.Series)['pool_rate']
-    total_agents = df['pool'].apply(pd.Series)['total_agents']
+    pool_total_agents = df['pool'].apply(pd.Series)['pool_total_agents']
     invested_tokens = df['pool'].apply(pd.Series)['invested_tokens']
 
     # Agent metrics
@@ -53,7 +53,7 @@ def postprocessing(df):
                           #'substep': df.substep,
                           #'pool': df.pool,
                           'pool_rate': pool_rate,
-                          'total_agents': total_agents,
+                          'pool_total_agents': pool_total_agents,
                           'invested_tokens': invested_tokens,
                           'uuid_agent': uuid_agent,
                           'deposit_days': deposit_days,

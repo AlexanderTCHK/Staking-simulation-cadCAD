@@ -65,10 +65,10 @@ def shuffle_agents_ordering(agents: dict):
 # Environment
 def new_pool() -> dict:
     pool_rate = 101
-    total_agents = 0
+    pool_total_agents = 0
     invested_tokens = 0
     pool = {'pool_rate': pool_rate,
-            'total_agents': total_agents,
+            'pool_total_agents': pool_total_agents,
             'invested_tokens': invested_tokens}
     return pool
 

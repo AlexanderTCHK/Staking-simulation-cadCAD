@@ -201,7 +201,7 @@ def update_pool_closing_expired_position(params, substep, state_history, prev_st
     print("---------------------------------Mechanism update_pool_closing_expired_position---------------------------------")
     print("Policy_input: ", "\n", policy_input, "\n")
     updated_pool = prev_state['pool'].copy()
-    updated_pool['total_agents'] -= policy_input['pool_total_agents']
+    updated_pool['pool_total_agents'] -= policy_input['pool_total_agents']
     updated_pool['invested_tokens'] -= policy_input['pool_invested_tokens']
     print("updated_pool:", "\n", updated_pool, "\n")
     return ('pool', updated_pool)
@@ -239,7 +239,7 @@ def update_pool_opening_position(params, substep, state_history, prev_state, pol
     print("---------------------------------Mechanism update_pool_opening_position---------------------------------")
     print("Policy_input: ", "\n", policy_input, "\n")
     updated_pool = prev_state['pool'].copy()
-    updated_pool['total_agents'] += policy_input['pool_total_agents']
+    updated_pool['pool_total_agents'] += policy_input['pool_total_agents']
     updated_pool['invested_tokens'] += policy_input['pool_invested_tokens']
     print("updated_pool:", "\n", updated_pool, "\n")
     return ('pool', updated_pool)

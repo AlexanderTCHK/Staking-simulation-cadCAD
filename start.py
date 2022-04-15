@@ -21,7 +21,8 @@ print(rdf)
 
 # print(tabulate(rdf, headers='keys', tablefmt='grid', showindex="always"))
 
-fig, ax = plt.subplots()
-ax.plot(rdf["timestep"], rdf["pool_rate"])
+fig, ax = plt.subplots(3, 1)
+ax[0].plot(rdf["timestep"], rdf["pool_rate"])
+ax[1].plot(rdf["timestep"], rdf["pool_total_agents"])
 plt.show()
 
