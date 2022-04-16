@@ -37,7 +37,8 @@ partial_state_update_block = [
             'agents': reproduce_agents
         },
         'variables': {
-            'agents': agent_create
+            'agents': agent_create,
+            'created_agents': update_created_agents_value
         }
     },
     {

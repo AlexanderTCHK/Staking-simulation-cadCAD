@@ -7,12 +7,16 @@ import pandas as pd
 import itertools
 
 # Generate log-normal distribution value
+
+
 def get_agent_invest_value():
     value = round(float(np.random.lognormal(10, .5, 1)))
     #value = random.randint(18000, 20000)
     return value
 
 # Creating a generator
+
+
 class with_current(object):
 
     def __init__(self, generator):
@@ -33,10 +37,13 @@ def countup_gen():
     for i in itertools.count(1):
         yield i
 
-countup_generator = countup_gen()     
+
+countup_generator = countup_gen()
 
 # Initialization
-def new_agent(age: int=0) -> dict:
+
+
+def new_agent(age: int = 0) -> dict:
     get_agent_investment_amount = get_agent_invest_value()
     agent = {'ready_to_open': False,
              'deposit_days': 0,
@@ -46,7 +53,7 @@ def new_agent(age: int=0) -> dict:
     return agent
 
 
-def generate_agents(n_agents: int) -> Dict[str, dict]:  
+def generate_agents(n_agents: int) -> Dict[str, dict]:
     initial_agents = {}
     for agent in range(n_agents):
         created_agent = new_agent()
@@ -55,7 +62,9 @@ def generate_agents(n_agents: int) -> Dict[str, dict]:
     print("initial_agents", initial_agents)
     return initial_agents
 
-# Shuffle agents 
+# Shuffle agents
+
+
 def shuffle_agents_ordering(agents: dict):
     lst = list(agents.items())
     random.shuffle(lst)
@@ -63,16 +72,20 @@ def shuffle_agents_ordering(agents: dict):
     return agents_dict
 
 # Environment
+
+
 def new_pool() -> dict:
     pool_rate = 101
-    pool_total_agents = 0
+    pool_active_agents = 0
     invested_tokens = 0
     pool = {'pool_rate': pool_rate,
-            'pool_total_agents': pool_total_agents,
+            'pool_active_agents': pool_active_agents,
             'invested_tokens': invested_tokens}
     return pool
 
 # Agents
+
+
 def get_max_agents(pool_rate: int) -> int:
     if pool_rate < 5:
         max_agents = 0
@@ -87,7 +100,9 @@ def get_max_agents(pool_rate: int) -> int:
     return max_agents
 
 # plotting
-def aggregate_runs(df,aggregate_dimension):
+
+
+def aggregate_runs(df, aggregate_dimension):
     '''
     Function to aggregate the monte carlo runs along a single dimension.
 
@@ -104,9 +119,10 @@ def aggregate_runs(df,aggregate_dimension):
     std_df = df.groupby(aggregate_dimension).std().reset_index()
     min_df = df.groupby(aggregate_dimension).min().reset_index()
 
-    return mean_df,median_df,std_df,min_df
+    return mean_df, median_df, std_df, min_df
 
-def monte_carlo_plot(df,aggregate_dimension,x,y,runs):
+
+def monte_carlo_plot(df, aggregate_dimension, x, y, runs):
     '''
     A function that generates timeseries plot of Monte Carlo runs.
 
@@ -120,14 +136,17 @@ def monte_carlo_plot(df,aggregate_dimension,x,y,runs):
     Example run:
     monte_carlo_plot(df,'timestep','timestep','revenue',run_count=100)
     '''
-    mean_df,median_df,std_df,min_df = aggregate_runs(df,aggregate_dimension)
-    plt.figure(figsize=(10,6))
-    for r in range(1,runs+1):
+    mean_df, median_df, std_df, min_df = aggregate_runs(
+        df, aggregate_dimension)
+    plt.figure(figsize=(10, 6))
+    for r in range(1, runs+1):
         legend_name = 'Run ' + str(r)
-        plt.plot(df[df.run==r].timestep, df[df.run==r][y], label = legend_name )
-    plt.plot(mean_df[x], mean_df[y], label = 'Mean', color = 'black')
+        plt.plot(df[df.run == r].timestep,
+                 df[df.run == r][y], label=legend_name)
+    plt.plot(mean_df[x], mean_df[y], label='Mean', color='black')
     plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     plt.xlabel(x)
     plt.ylabel(y)
-    title_text = 'Performance of ' + y + ' over ' + str(runs) + ' Monte Carlo Runs'
+    title_text = 'Performance of ' + y + \
+        ' over ' + str(runs) + ' Monte Carlo Runs'
     plt.title(title_text)
